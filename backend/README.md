@@ -1,6 +1,6 @@
 # Railway PostgreSQL 백엔드
 
-이 서버는 기존 검증용 화면과 별도로 실행되는 HTTP API입니다. Railway 프로젝트에 PostgreSQL 서비스와 이 저장소의 앱 서비스를 추가하고 앱 서비스의 `DATABASE_URL`을 PostgreSQL 서비스의 `DATABASE_URL` 변수 참조로 설정합니다. Railway가 제공하는 `PORT`를 사용합니다. 빌드 명령은 `npm ci --legacy-peer-deps`, 시작 명령은 `npm run db:migrate && npm start`로 설정합니다. 스키마 생성에는 CREATE 권한이 필요합니다. PostgreSQL은 외부 공개 없이 내부 네트워크로 연결합니다.
+이 서버는 기존 검증용 화면과 별도로 실행되는 HTTP API입니다. Railway 프로젝트에 PostgreSQL 서비스와 이 저장소의 앱 서비스를 추가하고 앱 서비스의 `DATABASE_URL`을 PostgreSQL 서비스의 `DATABASE_URL` 변수 참조로 설정합니다. Railway가 제공하는 `PORT`를 사용합니다. Railpack이 `.npmrc`의 설정을 사용해 의존성을 설치하고 `railway.toml`의 빌드 명령으로 서버 문법을 확인합니다. 시작 명령은 `npm run db:migrate && npm start`입니다. Railway 서비스 설정에 별도로 지정된 빌드 명령이 있다면 해당 재정의도 제거하세요. 스키마 생성에는 CREATE 권한이 필요합니다. PostgreSQL은 외부 공개 없이 내부 네트워크로 연결합니다.
 
 ## API
 
