@@ -25,7 +25,7 @@
 ```bash
 python -m venv .venv && .venv/Scripts/activate   # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env    # DATABASE_URL, SECRET_KEY, ANTHROPIC_API_KEY 입력
+cp .env.example .env    # DATABASE_URL, SECRET_KEY, UPSTAGE_API_KEY 입력
 uvicorn app.main:app --reload
 pytest
 ```

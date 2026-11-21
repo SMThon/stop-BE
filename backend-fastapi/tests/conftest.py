@@ -8,7 +8,7 @@ from pathlib import Path
 _tmp_dir = tempfile.mkdtemp()
 os.environ["DATABASE_URL"] = f"sqlite:///{(Path(_tmp_dir) / 'test.db').as_posix()}"
 os.environ["SECRET_KEY"] = "test-secret-key-for-pytest-only-0123456789"
-os.environ["ANTHROPIC_API_KEY"] = ""
+os.environ["UPSTAGE_API_KEY"] = ""
 
 import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402

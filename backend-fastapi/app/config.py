@@ -6,8 +6,9 @@ class Settings(BaseSettings):
 
     database_url: str = "sqlite:///./refund.db"
     secret_key: str = ""
-    anthropic_api_key: str = ""
-    anthropic_model: str = "claude-sonnet-5-5"
+    upstage_api_key: str = ""
+    upstage_model: str = "solar-pro4"
+    upstage_base_url: str = "https://api.upstage.ai/v1"
     access_token_expire_minutes: int = 60 * 24 * 7
     cors_origins: str = "http://localhost:5173"
     scrape_timeout_seconds: int = 10

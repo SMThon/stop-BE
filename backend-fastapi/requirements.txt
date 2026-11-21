@@ -8,5 +8,4 @@ bcrypt
 pyjwt
 httpx
 beautifulsoup4
-anthropic
 pytest
