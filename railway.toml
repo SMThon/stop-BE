@@ -1,0 +1,7 @@
+[build]
+buildCommand = "npm ci --legacy-peer-deps"
+
+[deploy]
+startCommand = "npm run db:migrate && npm start"
+healthcheckPath = "/health"
+healthcheckTimeout = 60
