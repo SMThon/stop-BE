@@ -1,5 +1,5 @@
 [build]
-buildCommand = "npm ci --legacy-peer-deps"
+buildCommand = "node --check backend/server.mjs && node --check backend/migrate.mjs"
 
 [deploy]
 startCommand = "npm run db:migrate && npm start"
