@@ -14,7 +14,7 @@ def _to_response(event: Event) -> EventResponse:
     return EventResponse(id=event.id, title=event.title, date=event.due_date, memo=event.memo)
 
 
-def _get_owned(session: Session, user: User, event_id: int) -> Event:
+def _get_owned(session: Session, user: User, event_id: str) -> Event:
     event = session.get(Event, event_id)
     if event is None or event.user_id != user.id:
         raise AppError("EVENT_NOT_FOUND", "일정을 찾을 수 없습니다.", 404)
@@ -37,7 +37,7 @@ def create_event(
 
 @router.get("/{event_id}", response_model=EventResponse)
 def get_event(
-    event_id: int,
+    event_id: str,
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ):
@@ -46,7 +46,7 @@ def get_event(
 
 @router.patch("/{event_id}", response_model=EventResponse)
 def update_event(
-    event_id: int,
+    event_id: str,
     body: EventUpdate,
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
@@ -67,7 +67,7 @@ def update_event(
 
 @router.delete("/{event_id}", status_code=204)
 def delete_event(
-    event_id: int,
+    event_id: str,
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ):

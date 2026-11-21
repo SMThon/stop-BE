@@ -1,1 +1,132 @@
-[]
+[
+  {
+    "id": "coupang",
+    "platform": "쿠팡",
+    "siteUrl": "https://www.coupang.com",
+    "sourceType": "built-in",
+    "returnDays": 7,
+    "baseDate": "receivedDate",
+    "includeStartDay": false,
+    "holidayAdjustment": "not-applied",
+    "returnFee": {
+      "basicFee": null,
+      "roundTripFee": null,
+      "currency": "KRW",
+      "note": "단순 변심은 구매자 부담, 판매자 귀책은 판매자 부담. 상품별 편도·왕복 금액은 미확인"
+    },
+    "exclusions": [
+      "구매자 책임으로 멸실·훼손(내용 확인을 위한 포장 훼손은 제외)",
+      "사용·소비 또는 시간 경과로 가치가 현저히 감소",
+      "복제 가능 상품 포장 훼손",
+      "제공이 개시된 용역·디지털 콘텐츠의 제한(미제공 가분 부분 예외)",
+      "사전 고지·서면 동의 요건을 충족한 주문제작 상품",
+      "상품별 추가 제한과 와우 혜택 별도 확인"
+    ],
+    "howTo": "마이쿠팡에서 반품 신청 → 택배기사 방문 수거 → 상품 확인 후 환불",
+    "defect": {
+      "fromReceiptMonths": 3,
+      "fromDiscoveryDays": 30,
+      "note": "표시·광고 또는 계약과 다른 상품: 공급받은 날부터 3개월 기준과 인지·인지 가능일부터 30일 기준을 함께 확인하세요. 반환 비용은 회사 부담입니다."
+    },
+    "sourceUrl": "https://www.coupang.com/returnPolicy.pang",
+    "collectedAt": "2026-11-21",
+    "verificationStatus": "verified",
+    "evidenceNote": "국내 배송상품의 일반 반품 안내. 와우 회원·로켓배송별 추가 혜택은 이번에 검증하지 않음. 공식 원문을 직접 열어 아래 인용·적용 범위를 대조함. 법률 검수나 개별 환불 승인, 전체 약관의 완전한 수집을 뜻하지 않음. 날짜 계산은 일반 기간만 계산하며 상품 예외·Amazon 시즌 연장·법적 환불 자격을 판정하지 않음. 모든 근거는 verifiedRefundPolicies.sources 확인"
+  },
+  {
+    "id": "11st",
+    "platform": "11번가",
+    "siteUrl": "https://www.11st.co.kr",
+    "sourceType": "built-in",
+    "returnDays": 7,
+    "baseDate": "receivedDate",
+    "includeStartDay": false,
+    "holidayAdjustment": "not-applied",
+    "returnFee": {
+      "basicFee": null,
+      "roundTripFee": null,
+      "currency": "KRW",
+      "note": "단순 변심은 구매자 부담, 판매자 귀책은 판매자 부담. 상품별 편도·왕복 금액은 미확인"
+    },
+    "exclusions": [
+      "구매자 귀책 훼손",
+      "사용·소비 또는 시간 경과로 가치가 현저히 감소",
+      "복제 가능한 상품 포장 훼손",
+      "사전 고지·서면 동의 요건을 충족한 주문제작 상품"
+    ],
+    "howTo": "11번가에 반품·교환 의사를 접수하면 판매자에게 통보됩니다. 반품송장번호를 기재하세요.",
+    "defect": {
+      "fromReceiptMonths": null,
+      "fromDiscoveryDays": null,
+      "note": "이 원문에서 공통 하자 기간을 확인하지 않음; 임의로 법정 기준을 채우지 않음"
+    },
+    "sourceUrl": "https://www.11st.co.kr/annc/AnncMainPreview.tmall?anncCd=01&method=getProvision",
+    "collectedAt": "2026-11-21",
+    "verificationStatus": "verified",
+    "evidenceNote": "국내 11번가 서비스이용약관 제23조. 개별 판매자의 상품 공지를 플랫폼 공통 규정으로 일반화하지 않음. 공식 원문을 직접 열어 아래 인용·적용 범위를 대조함. 법률 검수나 개별 환불 승인, 전체 약관의 완전한 수집을 뜻하지 않음. 날짜 계산은 일반 기간만 계산하며 상품 예외·Amazon 시즌 연장·법적 환불 자격을 판정하지 않음. 모든 근거는 verifiedRefundPolicies.sources 확인"
+  },
+  {
+    "id": "gmarket",
+    "platform": "G마켓",
+    "siteUrl": "https://help.gmarket.co.kr",
+    "sourceType": "built-in",
+    "returnDays": 7,
+    "baseDate": "receivedDate",
+    "includeStartDay": false,
+    "holidayAdjustment": "not-applied",
+    "returnFee": {
+      "basicFee": null,
+      "roundTripFee": null,
+      "currency": "KRW",
+      "note": "단순 변심은 구매자 부담, 판매자 귀책은 판매자 부담. 상품별 편도·왕복 금액은 미확인"
+    },
+    "exclusions": [
+      "반품요청 기간 경과",
+      "구매자 책임 훼손(확인용 포장 훼손 제외)",
+      "사용·소비 또는 시간 경과로 가치가 현저히 감소",
+      "복제 가능한 상품 포장 훼손",
+      "판매·생산 특성상 판매자에게 회복 불가능한 손해가 발생하는 경우(법령 요건 별도 확인)"
+    ],
+    "howTo": "게시판·G마켓 웹사이트·전화로 교환·반품 신청. 분쟁은 G마켓 고객센터에 문의하세요.",
+    "defect": {
+      "fromReceiptMonths": 3,
+      "fromDiscoveryDays": 30,
+      "note": "표시·광고 또는 계약과 다른 상품은 원문에 ‘수령 후 3개월 이내 또는 사실을 안 날부터 30일 이내’로 안내됩니다. 두 기간의 법적 관계는 별도 검수 대상입니다."
+    },
+    "sourceUrl": "https://help.gmarket.co.kr/SecurityCenter/Partial/_Guide?lkind=04&mkind=07&skind=47",
+    "collectedAt": "2026-11-21",
+    "verificationStatus": "verified",
+    "evidenceNote": "G마켓 안전거래센터의 반품·교환 운영 정책. 문서 내 법령 인용은 2013년 시행본으로, 현행 법령 전체 검증은 아님. 공식 원문을 직접 열어 아래 인용·적용 범위를 대조함. 법률 검수나 개별 환불 승인, 전체 약관의 완전한 수집을 뜻하지 않음. 날짜 계산은 일반 기간만 계산하며 상품 예외·Amazon 시즌 연장·법적 환불 자격을 판정하지 않음. 모든 근거는 verifiedRefundPolicies.sources 확인"
+  },
+  {
+    "id": "amazon",
+    "platform": "Amazon",
+    "siteUrl": "https://www.amazon.com",
+    "sourceType": "built-in",
+    "returnDays": 30,
+    "baseDate": "receivedDate",
+    "includeStartDay": false,
+    "holidayAdjustment": "not-applied",
+    "returnFee": {
+      "basicFee": null,
+      "roundTripFee": null,
+      "currency": "USD",
+      "note": "한국 반송 비용은 미확인. 무료 반품을 보장하지 않음."
+    },
+    "exclusions": [
+      "일부 신선식품·주문제작·약국·디지털 상품·Final Sale 등 반품 불가",
+      "새 Apple 브랜드·일부 Haul 상품은 일반 15일; 일부 다른 상품은 90~365일",
+      "반품 불가 상품의 하자·손상·오배송은 고객센터 문의"
+    ],
+    "howTo": "Your Orders에서 해당 상품의 Return Items 선택 후 표시된 반송 지침·기한을 따릅니다.",
+    "defect": {
+      "fromReceiptMonths": null,
+      "fromDiscoveryDays": null,
+      "note": "이 원문에서 공통 하자 기간을 확인하지 않음; 임의로 법정 기준을 채우지 않음"
+    },
+    "sourceUrl": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GKM69DUUYKQWKWX7",
+    "collectedAt": "2026-11-21",
+    "verificationStatus": "verified",
+    "evidenceNote": "Amazon.com 미국 사이트의 일반 정책. 한국 반송 비용·다른 국가 Amazon·개별 판매자 조건을 일괄 보장하지 않음. 공식 원문을 직접 열어 아래 인용·적용 범위를 대조함. 법률 검수나 개별 환불 승인, 전체 약관의 완전한 수집을 뜻하지 않음. 날짜 계산은 일반 기간만 계산하며 상품 예외·Amazon 시즌 연장·법적 환불 자격을 판정하지 않음. 모든 근거는 verifiedRefundPolicies.sources 확인"
+  }
+]

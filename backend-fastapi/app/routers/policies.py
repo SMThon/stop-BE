@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Query, Response
 from sqlmodel import Session, col, or_, select, update
 
 from app.config import settings
+from app.constants import SOURCE_USER_INPUT
 from app.database import get_session
 from app.deps import get_current_user
 from app.errors import AppError
@@ -19,7 +20,7 @@ from app.schemas.policy import (
 from app.services import extractor, scraper
 from app.services.deadline import today_kst
 from app.services.llm import LLMError
-from app.services.policy_service import get_visible_policy
+from app.services.policy_service import get_visible_policy, policy_columns
 from app.services.scraper import ScrapeError
 
 router = APIRouter(prefix="/api/policies", tags=["policies"])
@@ -33,7 +34,7 @@ def _failed(code: str, message: str) -> ScrapeResponse:
 
 @router.get("", response_model=list[PolicyResponse])
 def list_policies(
-    source_type: Literal["builtin", "user"] | None = Query(default=None, alias="sourceType"),
+    source_type: Literal["built-in", "user-input"] | None = Query(default=None, alias="sourceType"),
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ):
@@ -75,15 +76,17 @@ def create_policy(
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ):
-    """사용자가 확인·수정한 환불 규정을 저장한다 (FR-03)."""
+    """사용자가 확인·수정한 환불 규정을 저장한다 (FR-03). 사용자 입력 규정은 항상 미검증(unverified)이다."""
+    fields = policy_columns(body.model_dump())
+    fields["platform"] = fields["platform"].strip()
+    if fields.get("collected_at") is None:
+        fields["collected_at"] = today_kst()
     policy = Policy(
-        **body.model_dump(),
+        **fields,
         user_id=user.id,
-        source_type="user",
+        source_type=SOURCE_USER_INPUT,
+        verification_status="unverified",
     )
-    policy.platform = policy.platform.strip()
-    if policy.collected_at is None:
-        policy.collected_at = today_kst()
     session.add(policy)
     session.commit()
     session.refresh(policy)
@@ -92,7 +95,7 @@ def create_policy(
 
 @router.get("/{policy_id}", response_model=PolicyResponse)
 def get_policy(
-    policy_id: int,
+    policy_id: str,
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ):
@@ -102,7 +105,7 @@ def get_policy(
 
 @router.patch("/{policy_id}", response_model=PolicyResponse)
 def update_policy(
-    policy_id: int,
+    policy_id: str,
     body: PolicyUpdate,
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
@@ -111,11 +114,11 @@ def update_policy(
     if policy.user_id != user.id:
         raise AppError("POLICY_READONLY", "내장 환불 규정은 수정할 수 없습니다.", 403)
     data = body.model_dump(exclude_unset=True)
-    # 비울 수 없는 항목에 null이 오면 무시한다.
-    for required in ("platform", "return_days", "base_date", "exclusions"):
-        if data.get(required, "") is None:
+    # 비울 수 없는 항목에 null이 오면 무시한다. (return_days의 null은 '미확인'이라 허용)
+    for required in ("platform", "base_date", "include_start_day", "exclusions", "return_fee", "defect", "evidence_note"):
+        if required in data and data[required] is None:
             data.pop(required)
-    for key, value in data.items():
+    for key, value in policy_columns(data).items():
         setattr(policy, key, value)
     session.add(policy)
     session.commit()
@@ -125,7 +128,7 @@ def update_policy(
 
 @router.delete("/{policy_id}", status_code=204)
 def delete_policy(
-    policy_id: int,
+    policy_id: str,
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ):

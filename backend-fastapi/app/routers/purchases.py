@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Literal
 
-from fastapi import APIRouter, Depends, Query, Response
+from fastapi import APIRouter, Depends, Response
 from sqlmodel import Session, col, select
 
 from app.database import get_session
@@ -15,10 +15,10 @@ from app.services.purchase_service import to_response
 
 router = APIRouter(prefix="/api/purchases", tags=["purchases"])
 
-StatusFilter = Literal["KEEPING", "RETURN_REQUESTED", "REFUNDED", "EXPIRED"]
+StatusFilter = Literal["보관 중", "반품 신청", "환불 완료", "기한 지남"]
 
 
-def _get_owned(session: Session, user: User, purchase_id: int) -> Purchase:
+def _get_owned(session: Session, user: User, purchase_id: str) -> Purchase:
     purchase = session.get(Purchase, purchase_id)
     if purchase is None or purchase.user_id != user.id:
         raise AppError("PURCHASE_NOT_FOUND", "구매 내역을 찾을 수 없습니다.", 404)
@@ -39,7 +39,7 @@ def list_purchases(
     today = today_kst()
     purchases = session.exec(select(Purchase).where(Purchase.user_id == user.id)).all()
     policy_ids = {p.policy_id for p in purchases if p.policy_id is not None}
-    policies: dict[int, Policy] = {}
+    policies: dict[str, Policy] = {}
     if policy_ids:
         policies = {
             p.id: p for p in session.exec(select(Policy).where(col(Policy.id).in_(policy_ids))).all()
@@ -79,7 +79,7 @@ def create_purchase(
 
 @router.get("/{purchase_id}", response_model=PurchaseResponse)
 def get_purchase(
-    purchase_id: int,
+    purchase_id: str,
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ):
@@ -89,7 +89,7 @@ def get_purchase(
 
 @router.patch("/{purchase_id}", response_model=PurchaseResponse)
 def update_purchase(
-    purchase_id: int,
+    purchase_id: str,
     body: PurchaseUpdate,
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
@@ -122,7 +122,7 @@ def update_purchase(
 
 @router.delete("/{purchase_id}", status_code=204)
 def delete_purchase(
-    purchase_id: int,
+    purchase_id: str,
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ):

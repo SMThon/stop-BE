@@ -2,27 +2,28 @@ from datetime import date
 
 from sqlmodel import Session, col, select
 
+from app.constants import STATUS_REFUNDED
 from app.models import Event, Policy, Purchase
 from app.schemas.calendar import CalendarEvent
 from app.services.deadline import dday, is_imminent, level_for
 from app.services.purchase_service import purchase_deadline
 
 
-def collect_events(session: Session, user_id: int, today: date) -> list[CalendarEvent]:
+def collect_events(session: Session, user_id: str, today: date) -> list[CalendarEvent]:
     """환불 마감일(서버 계산) + 사용자가 직접 추가한 일정을 한 목록으로 합친다."""
     events: list[CalendarEvent] = []
 
     purchases = session.exec(
-        select(Purchase).where(Purchase.user_id == user_id, Purchase.status != "REFUNDED")
+        select(Purchase).where(Purchase.user_id == user_id, Purchase.status != STATUS_REFUNDED)
     ).all()
     policy_ids = {p.policy_id for p in purchases if p.policy_id is not None}
-    policies: dict[int, Policy] = {}
+    policies: dict[str, Policy] = {}
     if policy_ids:
         rows = session.exec(select(Policy).where(col(Policy.id).in_(policy_ids))).all()
         policies = {p.id: p for p in rows}
 
     for p in purchases:
-        deadline, _ = purchase_deadline(p, policies.get(p.policy_id))
+        deadline = purchase_deadline(p, policies.get(p.policy_id))
         if deadline is None:
             continue
         days_left = dday(deadline, today)

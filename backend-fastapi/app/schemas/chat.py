@@ -4,7 +4,7 @@ from app.schemas.base import CamelModel
 
 
 class LegalCheckRequest(CamelModel):
-    policy_id: int | None = None
+    policy_id: str | None = Field(default=None, max_length=64)
     question: str = Field(min_length=1, max_length=1000)
 
 

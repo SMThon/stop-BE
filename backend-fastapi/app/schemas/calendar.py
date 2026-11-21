@@ -9,7 +9,7 @@ Level = Literal["red", "yellow", "green", "gray"]
 class CalendarEvent(CamelModel):
     date: dt.date
     type: Literal["refund", "custom"]
-    ref_id: int
+    ref_id: str
     title: str
     dday: int
     level: Level

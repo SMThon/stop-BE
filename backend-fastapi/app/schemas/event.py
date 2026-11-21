@@ -18,7 +18,7 @@ class EventUpdate(CamelModel):
 
 
 class EventResponse(CamelModel):
-    id: int
+    id: str
     title: str
     date: dt.date
     memo: str | None

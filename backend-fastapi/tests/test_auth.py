@@ -10,6 +10,7 @@ def test_signup_login_me(client):
     res = client.get("/api/auth/me", headers=headers)
     assert res.status_code == 200
     assert res.json()["email"] == email
+    assert isinstance(res.json()["id"], str)
     assert "passwordHash" not in res.json()
 
 
@@ -58,6 +59,7 @@ def test_withdraw_deletes_all_user_data(client):
         headers=headers,
         json={"platform": "테스트몰", "productName": "러닝화", "price": 59000, "orderDate": "2026-11-15"},
     )
+    client.post("/api/policies", headers=headers, json={"platform": "내몰", "returnDays": 7})
     me = client.get("/api/auth/me", headers=headers).json()
 
     # 비밀번호가 틀리면 탈퇴되지 않는다.

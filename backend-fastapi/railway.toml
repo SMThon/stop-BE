@@ -1,0 +1,6 @@
+# Railway에서 이 서비스의 Root Directory를 backend-fastapi 로 지정해서 사용한다.
+# (저장소 루트의 railway.toml 은 기존 Node backend/ 서비스용이다.)
+[deploy]
+startCommand = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/health"
+healthcheckTimeout = 60
